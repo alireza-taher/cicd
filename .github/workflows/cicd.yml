@@ -35,6 +35,7 @@ jobs:
           name: artifact-${{ github.run_number }}
           path: artifact.txt
   release:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
