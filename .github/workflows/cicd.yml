@@ -47,5 +47,5 @@ jobs:
           name: artifact-${{ github.run_number }}
           path: artifact.txt
       - name: Deploy
-        run: ls && /bin/bash deploy.sh artifact.txt
+        run: /bin/bash deploy.sh artifact.txt
   
