@@ -27,13 +27,15 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Make a test artifact
-        run: echo "This is the artifact" > artifact.txt
+        run: |
+          mkdir artifacts
+          echo "This is the artifact" > artifacts/artifact.txt
 
       # Upload artifact:
       - uses: actions/upload-artifact@v4
         with:
           name: artifact-${{ github.run_number }}
-          path: artifact.txt
+          path: artifacts
   release:
     needs: build
     runs-on: ubuntu-latest
@@ -45,7 +47,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: artifact-${{ github.run_number }}
-          path: artifact.txt
+          path: artifacts
       - name: Deploy
-        run: ls -l artifact.txt/ && /bin/bash deploy.sh artifact.txt
+        run: /bin/bash deploy.sh artifacts/artifact.txt
   
